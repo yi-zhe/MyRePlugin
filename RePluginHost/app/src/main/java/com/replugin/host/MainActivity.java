@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 刻意以“包名”来打开
-                RePlugin.startActivity(MainActivity.this, RePlugin.createIntent("com.qihoo360.replugin.sample.demo1", "com.qihoo360.replugin.sample.demo1.MainActivity"));
+                RePlugin.startActivity(MainActivity.this, RePlugin.createIntent("com.replugin.plugin", "com.replugin.plugin.MainActivity"));
             }
         });
     }
