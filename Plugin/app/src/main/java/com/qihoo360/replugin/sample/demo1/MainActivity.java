@@ -45,6 +45,14 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(v.getContext(), StandardActivity.class);
             v.getContext().startActivity(intent);
         }));
+
+        mItems.add(new TestItem("Activity: Theme BlackNoTitleBar", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ThemeBlackNoTitleBarActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        }));
     }
 
     private class TestAdapter extends BaseAdapter {

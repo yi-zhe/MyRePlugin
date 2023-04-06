@@ -20,6 +20,12 @@
         <activity
             android:name=".StandardActivity"
             android:launchMode="standard" />
+        <activity
+            android:name=".ThemeBlackNoTitleBarActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
     </application>
 
 </manifest>
