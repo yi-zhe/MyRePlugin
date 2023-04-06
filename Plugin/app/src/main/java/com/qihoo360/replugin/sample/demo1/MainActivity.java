@@ -40,6 +40,11 @@ public class MainActivity extends Activity {
                 v.getContext().startActivity(intent);
             }
         }));
+
+        mItems.add(new TestItem("start plugin Activity: Standard", v -> {
+            Intent intent = new Intent(v.getContext(), StandardActivity.class);
+            v.getContext().startActivity(intent);
+        }));
     }
 
     private class TestAdapter extends BaseAdapter {
