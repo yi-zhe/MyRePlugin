@@ -43,6 +43,27 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
+
+        <activity
+            android:name=".SingleTopActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+
+        <activity
+            android:name=".SingleInstanceActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+
+        <activity
+            android:name=".IntentFilterActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.demo1" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="category_demo" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
