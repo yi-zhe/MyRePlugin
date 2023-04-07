@@ -46,19 +46,18 @@ public class MainActivity extends Activity {
             v.getContext().startActivity(intent);
         }));
 
-        mItems.add(new TestItem("Activity: Theme BlackNoTitleBar", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ThemeBlackNoTitleBarActivity.class);
-                v.getContext().startActivity(intent);
-            }
+        mItems.add(new TestItem("Activity: Theme BlackNoTitleBar", v -> {
+            Intent intent = new Intent(v.getContext(), ThemeBlackNoTitleBarActivity.class);
+            v.getContext().startActivity(intent);
         }));
-        mItems.add(new TestItem("Activity: Theme BlackNoTitleBarFullscreen", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ThemeBlackNoTitleBarFullscreenActivity.class);
-                v.getContext().startActivity(intent);
-            }
+        mItems.add(new TestItem("Activity: Theme BlackNoTitleBarFullscreen", v -> {
+            Intent intent = new Intent(v.getContext(), ThemeBlackNoTitleBarFullscreenActivity.class);
+            v.getContext().startActivity(intent);
+        }));
+
+        mItems.add(new TestItem("Activity: Theme Dialog", v -> {
+            Intent intent = new Intent(v.getContext(), ThemeDialogActivity.class);
+            v.getContext().startActivity(intent);
         }));
     }
 
