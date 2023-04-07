@@ -15,6 +15,9 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
  * @author liuyang 2023/4/6 8:25 PM
  */
 public class ThemeBlackNoTitleBarActivity extends Activity {
+
+    TextView textView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,7 @@ public class ThemeBlackNoTitleBarActivity extends Activity {
         setContentView(root);
 
         // textView
-        TextView textView = new TextView(this);
+        textView = new TextView(this);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(30);
         textView.setText("Theme: BlackNoTitleBar");

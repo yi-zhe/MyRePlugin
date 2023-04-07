@@ -26,6 +26,16 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ThemeBlackNoTitleBarFullscreenActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.qihoo360.replugin.sample.demo1.action.theme_fullscreen" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.qihoo360.repluginapp.replugin.demo1.CATEGORY1" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
