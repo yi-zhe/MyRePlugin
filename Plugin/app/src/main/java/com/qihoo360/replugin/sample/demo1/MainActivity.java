@@ -104,6 +104,13 @@ public class MainActivity extends Activity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             MainActivity.this.startActivity(intent);
         }));
+
+
+        mItems.add(new TestItem("Activity: Task Affinity", v -> {
+            Intent intent = new Intent(v.getContext(), TAActivity.class);
+            v.getContext().startActivity(intent);
+        }));
+
     }
 
     private class TestAdapter extends BaseAdapter {
