@@ -2,14 +2,18 @@ package com.qihoo360.replugin.sample.demo1;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.sample.demo1.service.PluginDemoService;
@@ -133,6 +137,22 @@ public class MainActivity extends Activity {
             intent.setPackage("com.qihoo360.replugin.sample.demo1");
             intent.setAction("com.qihoo360.replugin.sample.demo1.action.XXXX");
             v.getContext().startService(intent);
+        }));
+
+        mItems.add(new TestItem("Provider: Query (at UI process)", v -> {
+            Uri uri = Uri.parse("content://com.qihoo360.replugin.sample.demo1.provider/" + "test");
+
+            ContentValues cv = new ContentValues();
+            cv.put("name", "RePlugin Team");
+            cv.put("address", "beijing");
+
+            Uri urii = v.getContext().getContentResolver().insert(uri, cv);
+            Log.d("a4", "result=" + urii);
+            if (urii != null) {
+                Toast.makeText(v.getContext(), urii.toString(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(v.getContext(), "null", Toast.LENGTH_SHORT).show();
+            }
         }));
     }
 

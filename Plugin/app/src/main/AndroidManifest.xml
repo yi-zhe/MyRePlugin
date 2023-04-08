@@ -88,6 +88,10 @@
                 <action android:name="com.qihoo360.replugin.sample.demo1.action.XXXX" />
             </intent-filter>
         </service>
+
+        <provider
+            android:name=".provider.Provider"
+            android:authorities="com.qihoo360.replugin.sample.demo1.provider" />
     </application>
 
 </manifest>
