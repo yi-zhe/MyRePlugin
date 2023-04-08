@@ -71,6 +71,8 @@
             android:taskAffinity=":ta_1"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
 
+        <activity android:name=".FileProviderActivity" />
+
         <!-- receivers -->
         <receiver android:name=".receivers.PluginDemo1Receiver">
             <intent-filter>
@@ -92,6 +94,17 @@
         <provider
             android:name=".provider.Provider"
             android:authorities="com.qihoo360.replugin.sample.demo1.provider" />
+
+        <!-- 以下provider，作为插件时，可注释掉；作为单独APK时需要声明-->
+        <provider
+            android:name="com.qihoo360.replugin.sample.demo1.provider.FileProvider"
+            android:authorities="com.qihoo360.replugin.sample.host.FILE_PROVIDER"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider_path" />
+        </provider>
     </application>
 
 </manifest>

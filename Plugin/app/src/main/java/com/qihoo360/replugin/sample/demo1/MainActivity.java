@@ -154,6 +154,13 @@ public class MainActivity extends Activity {
                 Toast.makeText(v.getContext(), "null", Toast.LENGTH_SHORT).show();
             }
         }));
+
+
+        // FileProvider
+        mItems.add(new TestItem("FileProvider Activity", v -> {
+            Intent intent = new Intent(v.getContext(), FileProviderActivity.class);
+            v.getContext().startActivity(intent);
+        }));
     }
 
     private class TestAdapter extends BaseAdapter {
