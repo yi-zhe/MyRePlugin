@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.qihoo360.replugin.RePlugin;
+import com.qihoo360.replugin.sample.demo1.service.PluginDemoService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,15 @@ public class MainActivity extends Activity {
             intent.setAction("com.qihoo360.repluginapp.replugin.receiver.ACTION1");
             intent.putExtra("name", "jerry");
             v.getContext().sendBroadcast(intent);
+        }));
+
+        mItems.add(new TestItem("Service: Start (at :p0 process)", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PluginDemoService.class);
+                intent.setAction("action1");
+                v.getContext().startService(intent);
+            }
         }));
     }
 
