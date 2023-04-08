@@ -161,6 +161,14 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(v.getContext(), FileProviderActivity.class);
             v.getContext().startActivity(intent);
         }));
+
+        // Notification
+        mItems.add(new TestItem("Send Notification(Not Working)", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NotifyUtils.sendNotification(v.getContext().getApplicationContext());
+            }
+        }));
     }
 
     private class TestAdapter extends BaseAdapter {
