@@ -111,6 +111,12 @@ public class MainActivity extends Activity {
             v.getContext().startActivity(intent);
         }));
 
+        mItems.add(new TestItem("Broadcast: Send (to All)", v -> {
+            Intent intent = new Intent();
+            intent.setAction("com.qihoo360.repluginapp.replugin.receiver.ACTION1");
+            intent.putExtra("name", "jerry");
+            v.getContext().sendBroadcast(intent);
+        }));
     }
 
     private class TestAdapter extends BaseAdapter {

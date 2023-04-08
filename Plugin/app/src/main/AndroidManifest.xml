@@ -70,6 +70,13 @@
             android:launchMode="singleTask"
             android:taskAffinity=":ta_1"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
+
+        <!-- receivers -->
+        <receiver android:name=".receivers.PluginDemo1Receiver">
+            <intent-filter>
+                <action android:name="com.qihoo360.repluginapp.replugin.receiver.ACTION1" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
