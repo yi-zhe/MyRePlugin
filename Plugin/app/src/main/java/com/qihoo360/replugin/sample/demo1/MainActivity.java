@@ -127,6 +127,13 @@ public class MainActivity extends Activity {
                 v.getContext().startService(intent);
             }
         }));
+
+        mItems.add(new TestItem("Service: Implicit Start (at :UI process)", v -> {
+            Intent intent = new Intent();
+            intent.setPackage("com.qihoo360.replugin.sample.demo1");
+            intent.setAction("com.qihoo360.replugin.sample.demo1.action.XXXX");
+            v.getContext().startService(intent);
+        }));
     }
 
     private class TestAdapter extends BaseAdapter {

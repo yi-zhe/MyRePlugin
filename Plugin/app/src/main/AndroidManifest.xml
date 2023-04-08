@@ -81,6 +81,13 @@
         <service
             android:name=".service.PluginDemoService"
             android:process=":bg" />
+
+        <service
+            android:name=".service.PluginDemoService2">
+            <intent-filter>
+                <action android:name="com.qihoo360.replugin.sample.demo1.action.XXXX" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
