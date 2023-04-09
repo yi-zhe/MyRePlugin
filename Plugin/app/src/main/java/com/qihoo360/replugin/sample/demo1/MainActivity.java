@@ -1,29 +1,45 @@
 package com.qihoo360.replugin.sample.demo1;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.sample.demo1.service.PluginDemoService;
+import com.qihoo360.replugin.sample.demo2.IDemo2;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
 
     private final List<TestItem> mItems = new ArrayList<>();
+
+    private static final int REQUEST_CODE_DEMO2 = 0x021;
+    private static final int RESULT_CODE_DEMO2 = 0x022;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_DEMO2 && resultCode == RESULT_CODE_DEMO2) {
+            Toast.makeText(this, data.getStringExtra("data"), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,10 +179,65 @@ public class MainActivity extends Activity {
         }));
 
         // Notification
-        mItems.add(new TestItem("Send Notification(Not Working)", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NotifyUtils.sendNotification(v.getContext().getApplicationContext());
+        mItems.add(new TestItem("Send Notification(Not Working)", v -> NotifyUtils.sendNotification(v.getContext().getApplicationContext())));
+
+        mItems.add(new TestItem("Activity: AppCompat (to Demo2)", v -> RePlugin.startActivity(v.getContext(), new Intent(), "demo2", "com.qihoo360.replugin.sample.demo2.activity.appcompat.AppCompatActivityDemo")));
+
+        mItems.add(new TestItem("Activity: DataBinding (to Demo2)", v -> RePlugin.startActivity(v.getContext(), new Intent(), "demo2", "com.qihoo360.replugin.sample.demo2.databinding.DataBindingActivity")));
+
+        mItems.add(new TestItem("Activity: startForResult (to Demo2)", v -> {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("demo2", "com.qihoo360.replugin.sample.demo2.activity.for_result.ForResultActivity"));
+            MainActivity.this.startActivityForResult(intent, REQUEST_CODE_DEMO2);
+            // 也可以这么用
+            // RePlugin.startActivityForResult(MainActivity.this, intent, REQUEST_CODE_DEMO2);
+        }));
+
+        mItems.add(new TestItem("Activity: By Action (to Demo2)", v -> {
+            Intent intent = new Intent("com.qihoo360.replugin.sample.demo2.action.theme_fullscreen_2");
+            RePlugin.startActivity(v.getContext(), intent, "demo2", null);
+        }));
+
+        mItems.add(new TestItem("Use Demo2 Method: Reflection (Recommend)", v -> {
+            // 这是RePlugin的推荐玩法：反射调用Demo2，这样"天然的"做好了"版本控制"
+            // 避免出现我们当年2013年的各种问题
+            ClassLoader cl = RePlugin.fetchClassLoader("demo2");
+            if (cl == null) {
+                Toast.makeText(v.getContext(), "Not install Demo2", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                Class clz = cl.loadClass("com.qihoo360.replugin.sample.demo2.MainApp");
+                Method m = clz.getDeclaredMethod("helloFromDemo1", Context.class, String.class);
+                m.invoke(null, v.getContext(), "Demo1");
+            } catch (Exception e) {
+                // 有可能Demo2根本没有这个类，也有可能没有相应方法（通常出现在"插件版本升级"的情况）
+                Toast.makeText(v.getContext(), "", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }));
+        mItems.add(new TestItem("Resources: Use demo2's layout", v -> {
+            LinearLayout contentView = RePlugin.fetchViewByLayoutName("demo2", "from_demo1", null);
+            if (contentView == null) {
+                Toast.makeText(v.getContext(), "from_demo1 Not Found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Dialog d = new Dialog(v.getContext());
+            d.setContentView(contentView);
+            d.show();
+        }));
+
+        mItems.add(new TestItem("Binder: Fast-Fetch (to Demo2)", v -> {
+            IBinder b = RePlugin.fetchBinder("demo2", "demo2test");
+            if (b == null) {
+                return;
+            }
+            IDemo2 demo2 = IDemo2.Stub.asInterface(b);
+            try {
+                demo2.hello("helloooooooooooo");
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         }));
     }
