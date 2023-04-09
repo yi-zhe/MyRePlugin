@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.qihoo360.replugin.RePlugin;
 
@@ -19,6 +20,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 刻意以“包名”来打开
                 RePlugin.startActivity(MainActivity.this, RePlugin.createIntent("com.qihoo360.replugin.sample.demo1", "com.qihoo360.replugin.sample.demo1.MainActivity"));
+            }
+        });
+
+        findViewById(R.id.btn_start_demo3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 若没有安装，则直接提示“错误”
+                // TODO 将来把回调串联上
+                if (RePlugin.isPluginInstalled("demo3")) {
+                    RePlugin.startActivity(MainActivity.this, RePlugin.createIntent("demo3", "com.qihoo360.replugin.sample.demo3.MainActivity"));
+                } else {
+                    Toast.makeText(MainActivity.this, "You must install demo3 first!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

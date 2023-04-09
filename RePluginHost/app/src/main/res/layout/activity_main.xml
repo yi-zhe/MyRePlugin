@@ -11,4 +11,11 @@
         android:layout_gravity="center"
         android:text="@string/startDemo1" />
 
+    <Button
+        android:id="@+id/btn_start_demo3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="@string/startDemo3" />
+
 </LinearLayout>
